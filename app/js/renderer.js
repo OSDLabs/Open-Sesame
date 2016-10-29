@@ -5,22 +5,32 @@ var request = require('request');
 // Module for cross-platform notifications
 const notifier = require('node-notifier');
 
+function el(element) {
+  return document.getElementById(element);
+}
 
-request.post({
-  url: 'https://10.1.0.10:8090/login.xml',
-  strictSSL: false,
-  form: {
-    username: 'f2015xxx',
-    password: '****',
-    mode: '191'
-  }
-}, function (err, response, body) {
-  // Some network requests might take time. So, keep the user busy occupied with a notification until this callback is called.
-  console.log(err);
-  console.log(response);
-  console.log(body);
-  if (!err && response.statusCode == 200) {
-    notifier.notify('You have succesfully logged in.');
-  }
-  //TODO: All edge cases to be covered here.
-});
+function login() {
+  var userId = el('userId').value;
+  var password = el('password').value;
+  request.post({
+    url: 'https://10.1.0.10:8090/login.xml',
+    strictSSL: false,
+    form: {
+      username: userId,
+      password: password,
+      mode: '191'
+    }
+  }, function (err, response, body) {
+    // Some network requests might take time. So, keep the user busy occupied with a notification until this callback is called.
+    console.log(err);
+    console.log(response);
+    console.log(body);
+    if (!err && response.statusCode == 200) {
+      notifier.notify('You have succesfully logged in.');
+    }
+    //TODO: All edge cases to be covered here.
+  });
+
+}
+
+el('Login').onclick = login;
