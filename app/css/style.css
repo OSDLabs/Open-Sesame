@@ -1,0 +1,75 @@
+
+body
+{
+background: #4CB8C4; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #4CB8C4 , #3CD3AD); /* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(right, #4CB8C4 , #3CD3AD);
+background: linear-gradient(to left, #4CB8C4 , #3CD3AD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-size: 80px;
+
+}
+label
+{
+  display: block;
+}
+.header 
+  {
+    font-family: 'Montserrat:400', sans-serif;
+    font-size: 80px;
+  }
+
+.text1 {
+  background: transparent;
+padding: 8px;
+display: inline-block;
+  border: 0px;
+  font-size: 70px;
+  -webkit-transition: 800ms all ease;
+  transition:800ms all ease;
+  margin-top: 10px;
+  margin-bottom: 20px;
+
+}
+.text1:hover,.text1:focus {
+  background: transparent;
+  -webkit-transition: 800ms all ease;
+  transition:800ms all ease;
+  border-bottom: white solid 5px;
+width: 100%;
+padding-bottom: 25px;
+font-weight: 200;
+font-size: 15px;
+display: block;
+  margin-bottom: 20px;
+  color: white;
+  font-size: 90px;
+  outline: none;
+  border-radius: 5px;
+
+}
+#cool {
+  background: transparent;
+  font-family: 'Montserrat:400', sans-serif;
+    font-size: 80px;
+  outline: none;
+  border: white solid 5px;
+  display:block;
+  border-radius: 50px;
+  padding: 20px;
+  color: white;
+	
+}
+#cool:hover {
+  background: transparent;
+  font-family: 'Montserrat:400', sans-serif;
+    font-size: 80px;
+  outline: none;
+  border: white solid 5px;
+  display:block;
+  border-radius: 50px;
+  padding: 20px;
+  color: white;
+	
+}
