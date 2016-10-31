@@ -2,43 +2,36 @@
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
-var request = require('request');
-// Module for cross-platform notifications
-const notifier = require('node-notifier');
-//Easily query SSID
+
 const wifiName = require('wifi-name');
 //Cool network tool
 var network = require('network');
+// Module to store app and user state
+const storage = require('electron-json-storage');
+
 
 function el(element) {
   return document.getElementById(element);
 }
 
-function login() {
+
+
+function setup() {
   var userId = el('userId').value;
   var password = el('password').value;
-  request.post({
-    url: 'https://10.1.0.10:8090/login.xml',
-    strictSSL: false,
-    form: {
-      username: userId,
-      password: password,
-      mode: '191'
+  storage.set('setup', {
+    "userId": userId,
+    "password": password
+  }, function (error) {
+    if (error) {
+      throw error;
+    } else {
+      console.log("User settings successfully saved!");
     }
-  }, function (err, response, body) {
-    // Some network requests might take time. So, keep the user busy occupied with a notification until this callback is called.
-    console.log(err);
-    console.log(response);
-    console.log(body);
-    if (!err && response.statusCode == 200) {
-      notifier.notify('You have succesfully logged in.');
-    }
-    //TODO: All edge cases to be covered here.
   });
-
 }
 
-el('Login').onclick = login;
+el('Setup').onclick = setup;
 
 network.get_active_interface(function (err, obj) {
 

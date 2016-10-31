@@ -5,6 +5,13 @@ const electron = require('electron');
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
+// Module to store app and user state
+const storage = require('electron-json-storage');
+var request = require('request');
+// Module for cross-platform notifications
+const notifier = require('node-notifier');
+//Easily query SSID
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -32,12 +39,55 @@ function createWindow() {
   });
 }
 
-// String
+function login(userId, password) {
+  request.post({
+    url: 'https://10.1.0.10:8090/login.xml',
+    strictSSL: false,
+    form: {
+      username: userId,
+      password: password,
+      mode: '191'
+    }
+  }, function (err, response, body) {
+    // Some network requests might take time. So, keep the user busy occupied with a notification until this callback is called.
+    console.log(err);
+    console.log(response);
+    if (!err && response.statusCode == 200) {
+      notifier.notify('You have succesfully logged in.');
+    }
+    //TODO: All edge cases to be covered here.
+  });
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+}
+
+
+
+storage.has('setup', function (error, hasKey) {
+  if (error) {
+    throw error;
+  }
+  if (!hasKey) {
+    console.log('Application is yet to be setup.');
+    // This method will be called when Electron has finished
+    // initialization and is ready to create browser windows.
+    // Some APIs can only be used after this event occurs.
+    app.on('ready', createWindow);
+  } else {
+
+    storage.get('setup', function (error, data) {
+      if (error) {
+        throw error;
+      }
+      let userId = data.userId;
+      let password = data.password;
+      login(userId, password);
+    });
+
+
+  }
+});
+
+
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
