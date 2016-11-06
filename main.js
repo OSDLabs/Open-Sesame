@@ -11,6 +11,8 @@ var request = require('request');
 // Module for cross-platform notifications
 const notifier = require('node-notifier');
 //Easily query SSID
+const escapeStringRegexp = require('escape-string-regexp');
+//Escaping strings for regex
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -53,9 +55,12 @@ function login(userId, password) {
     console.log(err);
     console.log(response);
     if (!err && response.statusCode == 200) {
-      notifier.notify('You have succesfully logged in.');
+      var String1 = escapeStringRegexp('<message><![CDATA[');
+      var String2 = escapeStringRegexp(']]></message>')
+      var re = new RegExp(String1 + "(.*?)" + String2);
+      var result = re.exec(body);
+      notifier.notify(result[1]);
     }
-    //TODO: All edge cases to be covered here.
   });
 
 }
