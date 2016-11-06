@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "electron-json-storage": "^2.0.3",
+    "escape-string-regexp": "^1.0.5",
     "network": "^0.3.0",
     "node-notifier": "^4.6.1",
     "request": "^2.76.0",
