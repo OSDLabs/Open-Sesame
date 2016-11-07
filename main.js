@@ -56,7 +56,7 @@ function login(userId, password) {
     console.log(response);
     if (!err && response.statusCode == 200) {
       var String1 = escapeStringRegexp('<message><![CDATA[');
-      var String2 = escapeStringRegexp(']]></message>')
+      var String2 = escapeStringRegexp(']]></message>');
       var re = new RegExp(String1 + "(.*?)" + String2);
       var result = re.exec(body);
       notifier.notify(result[1]);

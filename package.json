@@ -4,7 +4,8 @@
   "description": "A beautiful one-time setup app to autologin into BITS net",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "lint": "jshint main.js app"
   },
   "keywords": [
     "Electron",
@@ -15,7 +16,8 @@
   "author": "Prudhvi Rampey",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^1.3.4"
+    "electron": "^1.3.4",
+    "jshint": "^2.9.4"
   },
   "dependencies": {
     "electron-json-storage": "^2.0.3",
