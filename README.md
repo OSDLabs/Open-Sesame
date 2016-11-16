@@ -23,6 +23,16 @@ Before sending in a pull request, you need to run [jshint](http://jshint.com/) t
 # Run the lint script 
 npm run lint
 ```
+To test packaged releases in development mode:
+
+```bash
+# Install electron-packager
+npm install -g electron-packager
+# For macOS
+electron-packager . --platform=darwin
+# For Linux
+electron-packager . --platform=linux
+```
 
 Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
 
