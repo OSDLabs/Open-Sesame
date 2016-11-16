@@ -20,6 +20,7 @@
     "jshint": "^2.9.4"
   },
   "dependencies": {
+    "auto-launch": "^5.0.1",
     "electron-json-storage": "^2.0.3",
     "escape-string-regexp": "^1.0.5",
     "network": "^0.3.0",

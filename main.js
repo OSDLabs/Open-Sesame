@@ -13,8 +13,30 @@ const notifier = require('node-notifier');
 //Easily query SSID
 const escapeStringRegexp = require('escape-string-regexp');
 //Escaping strings for regex
+// Module for autolaunching on startup
+const AutoLaunch = require('auto-launch');
 
 
+var AutoLauncher = new AutoLaunch({
+  name: 'OpenSesame'
+});
+
+// Warning! This works properly only on packaged releases.
+AutoLauncher.enable();
+
+//AutoLauncher.disable();
+
+AutoLauncher.isEnabled()
+  .then(function (isEnabled) {
+    if (isEnabled) {
+      return;
+    }
+    AutoLauncher.enable();
+  })
+  .catch(function (err) {
+    // handle error
+    console.log(err);
+  });
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -43,8 +65,8 @@ function createWindow() {
 
 function login(userId, password, mode) {
   //adding for the possibility of logout in future
-  if (mode===undefined) {
-    mode='191';
+  if (mode === undefined) {
+    mode = '191';
     //193 for logout
   }
   request.post({
