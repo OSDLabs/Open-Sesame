@@ -19,18 +19,23 @@ function el(element) {
 function setup() {
   var userId = el('userId').value;
   var password = el('password').value;
-  storage.set('setup', {
-    "userId": userId,
-    "password": password
-  }, function (error) {
-    if (error) {
-      throw error;
-    } else {
-      console.log("User settings successfully saved!");
-    }
-  });
-}
 
+  //checking if the form is not empty
+  if(userId && password){
+    storage.set('setup', {
+      "userId": userId,
+      "password": password
+    }, function (error) {
+      if (error) {
+        throw error;
+      } else {
+        console.log("User settings successfully saved!");
+        el('userId').value='';
+        el('password').value = '';
+      }
+    });
+  }
+}
 el('Setup').onclick = setup;
 
 network.get_active_interface(function (err, obj) {

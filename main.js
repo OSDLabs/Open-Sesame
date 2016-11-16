@@ -22,8 +22,8 @@ let mainWindow;
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600
+    width: 700,
+    height: 450
   });
 
   // and load the index.html of the app.
@@ -41,19 +41,24 @@ function createWindow() {
   });
 }
 
-function login(userId, password) {
+function login(userId, password, mode) {
+  //adding for the possibility of logout in future
+  if (mode===undefined) {
+    mode='191';
+    //193 for logout
+  }
   request.post({
     url: 'https://10.1.0.10:8090/login.xml',
     strictSSL: false,
     form: {
       username: userId,
       password: password,
-      mode: '191'
+      mode: mode
     }
   }, function (err, response, body) {
     // Some network requests might take time. So, keep the user busy occupied with a notification until this callback is called.
     console.log(err);
-    console.log(response);
+    // console.log(response);
     if (!err && response.statusCode == 200) {
       var String1 = escapeStringRegexp('<message><![CDATA[');
       var String2 = escapeStringRegexp(']]></message>');
@@ -65,7 +70,10 @@ function login(userId, password) {
 
 }
 
-
+function appCreate() {
+  app.on('ready', createWindow);
+  createWindow();
+}
 
 storage.has('setup', function (error, hasKey) {
   if (error) {
@@ -76,7 +84,7 @@ storage.has('setup', function (error, hasKey) {
     // This method will be called when Electron has finished
     // initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
-    app.on('ready', createWindow);
+    appCreate();
   } else {
 
     storage.get('setup', function (error, data) {

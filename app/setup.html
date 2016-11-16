@@ -6,16 +6,18 @@
   <title>Open Sesame!</title>
 
   <link href="css/style.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
 </head>
 
 <body>
   <h1>"All good things start with a purpose."</h1>
-  <label class="header">Enter User ID</label>
-  <input id="userId" class="text1" />
-  <label class="header">What's your password?</label>
-  <input id="password" class="text1">
+  <div class="center">
+    <label class="header">Enter User ID</label>
+    <input id="userId" class="text1" required/>
+    <label class="header">What's your password?</label>
+    <input id="password" class="text1" type="password" required>
+  </div>
   <button id="Setup">Set me up!</button>
 </body>
 
