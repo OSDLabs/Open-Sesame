@@ -15,6 +15,8 @@ const escapeStringRegexp = require('escape-string-regexp');
 //Escaping strings for regex
 // Module for autolaunching on startup
 const AutoLaunch = require('auto-launch');
+const http = require('http');
+const url = require('url');
 
 
 var AutoLauncher = new AutoLaunch({
@@ -108,7 +110,9 @@ storage.has('setup', function (error, hasKey) {
     // Some APIs can only be used after this event occurs.
     appCreate();
   } else {
-
+    //Initiate endless poll
+    setInterval(queryCheck, refreshinterval * 1000);
+    queryCheck();
     storage.get('setup', function (error, data) {
       if (error) {
         throw error;
@@ -140,6 +144,36 @@ app.on('activate', function () {
     createWindow();
   }
 });
+
+const refreshinterval = 10;
+
+function queryCheck() {
+  http.get('http://captive.apple.com/hotspot-detect.html', function (res) {
+    // Detect a redirect
+    if (res.statusCode > 300 && res.statusCode < 400 && res.headers.location) {
+      // The location for some (most) redirects will only contain the path,  not the hostname;
+      // detect this and add the host to the path.
+      console.log("Its a redirect!");
+      if (url.parse(res.headers.location).hostname) {
+        // Hostname included; make request to res.headers.location
+      } else {
+        // Hostname not included; get host from requested URL (url.parse()) and prepend to location.
+      }
+
+      // Otherwise no redirect; capture the response as normal
+    } else {
+      var data = '';
+
+      res.on('data', function (chunk) {
+        data += chunk;
+      }).on('end', function () {
+        // Do something with 'data'
+        console.log(data);
+      });
+    }
+  });
+}
+
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

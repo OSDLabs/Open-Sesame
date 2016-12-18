@@ -26,6 +26,7 @@
     "network": "^0.3.0",
     "node-notifier": "^4.6.1",
     "request": "^2.76.0",
+    "url": "^0.11.0",
     "wifi-name": "^3.0.0"
   }
 }
